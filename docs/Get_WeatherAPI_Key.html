@@ -1,208 +1,1971 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme-color="blue" data-theme-mode="system">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WeatherAPI's API Key</title>
+    <title>How to Get WeatherAPI Key · Material You New Tab</title>
+    <link rel="icon" type="image/png" href="../favicon/icon128.png">
+
+    <!-- Google Font: Poppins (Identical to MYNT design system) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
+        /* ==========================================================================
+           Material You (MD3) Design Tokens & Dynamic Color Engine
+           Faithfully shared with feedback.html & MYNT core
+           ========================================================================== */
+        :root {
+            --font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+            /* Base Spacing & MD3 Radii */
+            --radius-xs: 8px;
+            --radius-sm: 14px;
+            --radius-md: 20px;
+            --radius-lg: 28px;
+            --radius-xl: 36px;
+            --radius-full: 9999px;
+
+            /* Motion */
+            --md-ease: cubic-bezier(0.2, 0.0, 0, 1.0);
+            --md-duration: 0.28s;
+
+            /* Default Blue Theme (Light) */
+            --md-bg: #dce7f9;
+            --md-surface: #eaf1fb;
+            --md-surface-card: #ffffff;
+            --md-surface-container: #edf3fc;
+            --md-surface-high: #ffffff;
+            --md-primary: #2b6cb0;
+            --md-primary-container: #d6e4f9;
+            --md-on-primary-container: #103258;
+            --md-accent: #3b82f6;
+            --md-text: #172b42;
+            --md-text-muted: #57708a;
+            --md-outline: rgba(43, 108, 176, 0.16);
+            --md-outline-hover: rgba(43, 108, 176, 0.35);
+            --md-shadow: 0 10px 30px -8px rgba(30, 60, 100, 0.12), 0 4px 10px -2px rgba(30, 60, 100, 0.06);
+            --md-shadow-hover: 0 16px 36px -6px rgba(30, 60, 100, 0.18), 0 6px 14px -2px rgba(30, 60, 100, 0.08);
+        }
+
+        /* ------------------ Color Palettes (Material You Seeds) ------------------ */
+        /* Green Palette */
+        html[data-theme-color="green"] {
+            --md-bg: #d9edd9;
+            --md-surface: #e8f5e8;
+            --md-surface-card: #ffffff;
+            --md-surface-container: #eaf6ea;
+            --md-surface-high: #ffffff;
+            --md-primary: #2d7a3e;
+            --md-primary-container: #d4ebd8;
+            --md-on-primary-container: #0f3d1b;
+            --md-accent: #34a853;
+            --md-text: #14351b;
+            --md-text-muted: #517558;
+            --md-outline: rgba(45, 122, 62, 0.16);
+            --md-outline-hover: rgba(45, 122, 62, 0.35);
+            --md-shadow: 0 10px 30px -8px rgba(25, 75, 35, 0.12), 0 4px 10px -2px rgba(25, 75, 35, 0.06);
+            --md-shadow-hover: 0 16px 36px -6px rgba(25, 75, 35, 0.18), 0 6px 14px -2px rgba(25, 75, 35, 0.08);
+        }
+
+        /* Purple Palette */
+        html[data-theme-color="purple"] {
+            --md-bg: #eddff5;
+            --md-surface: #f4ecf9;
+            --md-surface-card: #ffffff;
+            --md-surface-container: #f5edf9;
+            --md-surface-high: #ffffff;
+            --md-primary: #7c3aed;
+            --md-primary-container: #eedffd;
+            --md-on-primary-container: #3c137d;
+            --md-accent: #9333ea;
+            --md-text: #2a183d;
+            --md-text-muted: #715589;
+            --md-outline: rgba(124, 58, 237, 0.16);
+            --md-outline-hover: rgba(124, 58, 237, 0.35);
+            --md-shadow: 0 10px 30px -8px rgba(70, 30, 110, 0.12), 0 4px 10px -2px rgba(70, 30, 110, 0.06);
+            --md-shadow-hover: 0 16px 36px -6px rgba(70, 30, 110, 0.18), 0 6px 14px -2px rgba(70, 30, 110, 0.08);
+        }
+
+        /* Peach / Coral Palette */
+        html[data-theme-color="peach"] {
+            --md-bg: #fde2db;
+            --md-surface: #fdf0ec;
+            --md-surface-card: #ffffff;
+            --md-surface-container: #fceed8;
+            --md-surface-high: #ffffff;
+            --md-primary: #d9482b;
+            --md-primary-container: #fddcd5;
+            --md-on-primary-container: #5d1709;
+            --md-accent: #f97316;
+            --md-text: #3c1a14;
+            --md-text-muted: #82544c;
+            --md-outline: rgba(217, 72, 43, 0.16);
+            --md-outline-hover: rgba(217, 72, 43, 0.35);
+            --md-shadow: 0 10px 30px -8px rgba(110, 40, 20, 0.12), 0 4px 10px -2px rgba(110, 40, 20, 0.06);
+            --md-shadow-hover: 0 16px 36px -6px rgba(110, 40, 20, 0.18), 0 6px 14px -2px rgba(110, 40, 20, 0.08);
+        }
+
+        /* Cyan Palette */
+        html[data-theme-color="cyan"] {
+            --md-bg: #d3f3f5;
+            --md-surface: #e5f9fa;
+            --md-surface-card: #ffffff;
+            --md-surface-container: #e6f8fa;
+            --md-surface-high: #ffffff;
+            --md-primary: #087f8c;
+            --md-primary-container: #c8eff2;
+            --md-on-primary-container: #04383e;
+            --md-accent: #06b6d4;
+            --md-text: #0e2d31;
+            --md-text-muted: #486f74;
+            --md-outline: rgba(8, 127, 140, 0.16);
+            --md-outline-hover: rgba(8, 127, 140, 0.35);
+            --md-shadow: 0 10px 30px -8px rgba(10, 70, 75, 0.12), 0 4px 10px -2px rgba(10, 70, 75, 0.06);
+            --md-shadow-hover: 0 16px 36px -6px rgba(10, 70, 75, 0.18), 0 6px 14px -2px rgba(10, 70, 75, 0.08);
+        }
+
+        /* ------------------ Dark Mode Support ------------------ */
+        @media (prefers-color-scheme: dark) {
+            html[data-theme-mode="system"] {
+                --md-bg: #0f1622;
+                --md-surface: #172132;
+                --md-surface-card: #1c283c;
+                --md-surface-container: #1e2c42;
+                --md-surface-high: #24344d;
+                --md-primary: #76a9fa;
+                --md-primary-container: #253956;
+                --md-on-primary-container: #dce7f9;
+                --md-accent: #60a5fa;
+                --md-text: #f1f5f9;
+                --md-text-muted: #94a3b8;
+                --md-outline: rgba(118, 169, 250, 0.2);
+                --md-outline-hover: rgba(118, 169, 250, 0.45);
+                --md-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.5), 0 4px 10px -2px rgba(0, 0, 0, 0.3);
+                --md-shadow-hover: 0 16px 36px -6px rgba(0, 0, 0, 0.65), 0 6px 14px -2px rgba(0, 0, 0, 0.4);
+            }
+
+            html[data-theme-mode="system"][data-theme-color="green"] {
+                --md-bg: #0c1810;
+                --md-surface: #142419;
+                --md-surface-card: #192e20;
+                --md-surface-container: #1f3727;
+                --md-surface-high: #264330;
+                --md-primary: #73d18e;
+                --md-primary-container: #1c4228;
+                --md-on-primary-container: #d9edd9;
+                --md-accent: #4ade80;
+                --md-text: #f0fdf4;
+                --md-text-muted: #86efac;
+                --md-outline: rgba(115, 209, 142, 0.22);
+                --md-outline-hover: rgba(115, 209, 142, 0.45);
+            }
+
+            html[data-theme-mode="system"][data-theme-color="purple"] {
+                --md-bg: #150f22;
+                --md-surface: #1f1632;
+                --md-surface-card: #271c3e;
+                --md-surface-container: #2f224b;
+                --md-surface-high: #382959;
+                --md-primary: #c084fc;
+                --md-primary-container: #3d2366;
+                --md-on-primary-container: #eedffd;
+                --md-accent: #a855f7;
+                --md-text: #faf5ff;
+                --md-text-muted: #d8b4fe;
+                --md-outline: rgba(192, 132, 252, 0.22);
+                --md-outline-hover: rgba(192, 132, 252, 0.45);
+            }
+
+            html[data-theme-mode="system"][data-theme-color="peach"] {
+                --md-bg: #1c110f;
+                --md-surface: #291815;
+                --md-surface-card: #341e1a;
+                --md-surface-container: #3f2520;
+                --md-surface-high: #4d2d27;
+                --md-primary: #fb923c;
+                --md-primary-container: #55261d;
+                --md-on-primary-container: #fddcd5;
+                --md-accent: #f97316;
+                --md-text: #fff7ed;
+                --md-text-muted: #fdba74;
+                --md-outline: rgba(251, 146, 60, 0.22);
+                --md-outline-hover: rgba(251, 146, 60, 0.45);
+            }
+
+            html[data-theme-mode="system"][data-theme-color="cyan"] {
+                --md-bg: #0b181a;
+                --md-surface: #122427;
+                --md-surface-card: #172d31;
+                --md-surface-container: #1d373c;
+                --md-surface-high: #24444a;
+                --md-primary: #38bdf8;
+                --md-primary-container: #154249;
+                --md-on-primary-container: #c8eff2;
+                --md-accent: #22d3ee;
+                --md-text: #ecfeff;
+                --md-text-muted: #67e8f9;
+                --md-outline: rgba(56, 189, 248, 0.22);
+                --md-outline-hover: rgba(56, 189, 248, 0.45);
+            }
+        }
+
+        /* Explicit Dark Mode Overrides */
+        html[data-theme-mode="dark"] {
+            --md-bg: #0f1622;
+            --md-surface: #172132;
+            --md-surface-card: #1c283c;
+            --md-surface-container: #1e2c42;
+            --md-surface-high: #24344d;
+            --md-primary: #76a9fa;
+            --md-primary-container: #253956;
+            --md-on-primary-container: #dce7f9;
+            --md-accent: #60a5fa;
+            --md-text: #f1f5f9;
+            --md-text-muted: #94a3b8;
+            --md-outline: rgba(118, 169, 250, 0.2);
+            --md-outline-hover: rgba(118, 169, 250, 0.45);
+            --md-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.5), 0 4px 10px -2px rgba(0, 0, 0, 0.3);
+            --md-shadow-hover: 0 16px 36px -6px rgba(0, 0, 0, 0.65), 0 6px 14px -2px rgba(0, 0, 0, 0.4);
+        }
+
+        html[data-theme-mode="dark"][data-theme-color="green"] {
+            --md-bg: #0c1810;
+            --md-surface: #142419;
+            --md-surface-card: #192e20;
+            --md-surface-container: #1f3727;
+            --md-surface-high: #264330;
+            --md-primary: #73d18e;
+            --md-primary-container: #1c4228;
+            --md-on-primary-container: #d9edd9;
+            --md-accent: #4ade80;
+            --md-text: #f0fdf4;
+            --md-text-muted: #86efac;
+            --md-outline: rgba(115, 209, 142, 0.22);
+            --md-outline-hover: rgba(115, 209, 142, 0.45);
+        }
+
+        html[data-theme-mode="dark"][data-theme-color="purple"] {
+            --md-bg: #150f22;
+            --md-surface: #1f1632;
+            --md-surface-card: #271c3e;
+            --md-surface-container: #2f224b;
+            --md-surface-high: #382959;
+            --md-primary: #c084fc;
+            --md-primary-container: #3d2366;
+            --md-on-primary-container: #eedffd;
+            --md-accent: #a855f7;
+            --md-text: #faf5ff;
+            --md-text-muted: #d8b4fe;
+            --md-outline: rgba(192, 132, 252, 0.22);
+            --md-outline-hover: rgba(192, 132, 252, 0.45);
+        }
+
+        html[data-theme-mode="dark"][data-theme-color="peach"] {
+            --md-bg: #1c110f;
+            --md-surface: #291815;
+            --md-surface-card: #341e1a;
+            --md-surface-container: #3f2520;
+            --md-surface-high: #4d2d27;
+            --md-primary: #fb923c;
+            --md-primary-container: #55261d;
+            --md-on-primary-container: #fddcd5;
+            --md-accent: #f97316;
+            --md-text: #fff7ed;
+            --md-text-muted: #fdba74;
+            --md-outline: rgba(251, 146, 60, 0.22);
+            --md-outline-hover: rgba(251, 146, 60, 0.45);
+        }
+
+        html[data-theme-mode="dark"][data-theme-color="cyan"] {
+            --md-bg: #0b181a;
+            --md-surface: #122427;
+            --md-surface-card: #172d31;
+            --md-surface-container: #1d373c;
+            --md-surface-high: #24444a;
+            --md-primary: #38bdf8;
+            --md-primary-container: #154249;
+            --md-on-primary-container: #c8eff2;
+            --md-accent: #22d3ee;
+            --md-text: #ecfeff;
+            --md-text-muted: #67e8f9;
+            --md-outline: rgba(56, 189, 248, 0.22);
+            --md-outline-hover: rgba(56, 189, 248, 0.45);
+        }
+
+        /* Explicit Light Mode Override */
+        html[data-theme-mode="light"] {
+            --md-bg: #dce7f9;
+            --md-surface: #eaf1fb;
+            --md-surface-card: #ffffff;
+            --md-surface-container: #edf3fc;
+            --md-surface-high: #ffffff;
+            --md-primary: #2b6cb0;
+            --md-primary-container: #d6e4f9;
+            --md-on-primary-container: #103258;
+            --md-accent: #3b82f6;
+            --md-text: #172b42;
+            --md-text-muted: #57708a;
+            --md-outline: rgba(43, 108, 176, 0.16);
+            --md-outline-hover: rgba(43, 108, 176, 0.35);
+            --md-shadow: 0 10px 30px -8px rgba(30, 60, 100, 0.12), 0 4px 10px -2px rgba(30, 60, 100, 0.06);
+            --md-shadow-hover: 0 16px 36px -6px rgba(30, 60, 100, 0.18), 0 6px 14px -2px rgba(30, 60, 100, 0.08);
+        }
+
+        /* ==========================================================================
+           General Reset & Layout
+           ========================================================================== */
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
+            font-family: var(--font-family);
+            -webkit-tap-highlight-color: transparent;
         }
 
-        h1,
-        h2,
-        h3 {
-            color: #0056b3;
+        html {
+            scroll-behavior: smooth;
+            background-color: var(--md-bg);
+            transition: background-color var(--md-duration) var(--md-ease);
         }
 
-        h1 {
-            text-align: center;
-            margin: 20px 0;
+        body {
+            background-color: var(--md-bg);
+            color: var(--md-text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.6;
+            transition: background-color var(--md-duration) var(--md-ease), color var(--md-duration) var(--md-ease);
+            padding: 0 18px 48px;
+            overflow-x: hidden;
         }
 
-        h3:not(:first-of-type) {
-            margin-top: 35px;
+        .page-wrap {
+            width: 100%;
+            max-width: 960px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
         }
 
-        section {
-            max-width: 800px;
-            margin: 20px auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        /* ==========================================================================
+           Material You Top App Bar
+           ========================================================================== */
+        .app-bar {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 8px 12px;
+            gap: 16px;
+            flex-wrap: wrap;
         }
 
-        img {
-            display: block;
-            margin: 10px auto;
-            max-width: 100%;
-            height: auto;
-        }
-
-        p,
-        li {
-            margin: 10px 0;
-        }
-
-        ul {
-            padding-left: 20px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 10px;
-            background: #0056b3;
-            color: #fff;
-            margin-top: 10px;
-        }
-
-        footer a {
-            color: #ffd700;
+        .brand-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
             text-decoration: none;
+            color: var(--md-text);
+            transition: transform var(--md-duration) var(--md-ease);
         }
 
-        footer a:hover {
+        .brand-badge:hover {
+            transform: scale(1.02);
+        }
+
+        .brand-logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+        }
+
+        .brand-meta {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-title {
+            font-size: 19px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+            color: var(--md-text);
+        }
+
+        .brand-subtitle {
+            font-size: 12.5px;
+            font-weight: 500;
+            color: var(--md-text-muted);
+            letter-spacing: 0.02em;
+        }
+
+        .bar-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .nav-chips {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--md-surface);
+            padding: 5px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--md-outline);
+        }
+
+        .nav-chip {
+            padding: 7px 16px;
+            border-radius: var(--radius-full);
+            text-decoration: none;
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--md-text-muted);
+            transition: all var(--md-duration) var(--md-ease);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-chip:hover {
+            color: var(--md-text);
+            background: rgba(0, 0, 0, 0.04);
+        }
+
+        .nav-chip.active {
+            background: var(--md-primary-container);
+            color: var(--md-on-primary-container);
+        }
+
+        .theme-mode-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1px solid var(--md-outline);
+            background: var(--md-surface);
+            color: var(--md-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--md-duration) var(--md-ease);
+            outline: none;
+        }
+
+        .theme-mode-btn:focus-visible {
+            outline: 2px solid var(--md-primary);
+            outline-offset: 2px;
+        }
+
+        .theme-mode-btn:hover {
+            background: var(--md-primary-container);
+            transform: rotate(20deg) scale(1.05);
+        }
+
+        .theme-mode-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* ==========================================================================
+           Hero Expressive Card with Interactive MD3 Theme Engine
+           ========================================================================== */
+        .hero-card {
+            background: var(--md-surface);
+            border: 1px solid var(--md-outline);
+            border-radius: var(--radius-xl);
+            padding: 40px 44px;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--md-shadow);
+            transition: all var(--md-duration) var(--md-ease);
+        }
+
+        .hero-card::before {
+            content: "";
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--md-primary) 0%, transparent 70%);
+            opacity: 0.16;
+            pointer-events: none;
+        }
+
+        .hero-top-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .hero-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--md-primary-container);
+            color: var(--md-on-primary-container);
+            padding: 6px 14px;
+            border-radius: var(--radius-full);
+            font-size: 12.5px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .hero-badge-pill svg {
+            width: 15px;
+            height: 15px;
+            fill: currentColor;
+        }
+
+        .hero-headline {
+            font-size: clamp(28px, 4.2vw, 42px);
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--md-text);
+            letter-spacing: -0.02em;
+            max-width: 820px;
+        }
+
+        .hero-headline span.highlight {
+            color: var(--md-primary);
+            position: relative;
+        }
+
+        .hero-desc {
+            font-size: 16px;
+            line-height: 1.65;
+            color: var(--md-text-muted);
+            max-width: 780px;
+            font-weight: 400;
+        }
+
+        .hero-highlights-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+
+        .highlight-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--md-surface-card);
+            padding: 8px 16px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--md-outline);
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--md-text);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+        }
+
+        .highlight-chip svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--md-primary);
+        }
+
+        .hero-actions-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            padding-top: 18px;
+            border-top: 1px solid var(--md-outline);
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--md-primary);
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: var(--radius-full);
+            font-size: 14.5px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+            transition: all var(--md-duration) var(--md-ease);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            filter: brightness(1.08);
+        }
+
+        .btn-primary svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* Material You Color Seeds Switcher Bar */
+        .theme-picker-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .palette-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--md-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .palette-dots {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .color-dot {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all var(--md-duration) var(--md-ease);
+            position: relative;
+            outline: none;
+        }
+
+        .color-dot:focus-visible {
+            outline: 2px solid var(--md-primary);
+            outline-offset: 3px;
+        }
+
+        .color-dot:hover {
+            transform: scale(1.18);
+        }
+
+        .color-dot.active {
+            border-color: var(--md-text);
+            box-shadow: 0 0 0 3px var(--md-surface), 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .dot-blue { background: #3b82f6; }
+        .dot-green { background: #34a853; }
+        .dot-purple { background: #9333ea; }
+        .dot-peach { background: #f97316; }
+        .dot-cyan { background: #06b6d4; }
+
+        /* ==========================================================================
+           Category Section Headers
+           ========================================================================== */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 0 4px;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--md-primary);
+        }
+
+        .section-tag svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--md-text);
+            letter-spacing: -0.01em;
+        }
+
+        /* ==========================================================================
+           Vertical Stepper Timeline
+           ========================================================================== */
+        .stepper-timeline {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .stepper-timeline::before {
+            content: "";
+            position: absolute;
+            top: 24px;
+            bottom: 40px;
+            left: 27px;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--md-primary) 0%, var(--md-outline) 100%);
+            border-radius: var(--radius-full);
+            z-index: 1;
+        }
+
+        .step-item {
+            position: relative;
+            display: flex;
+            gap: 24px;
+            z-index: 2;
+        }
+
+        .step-indicator {
+            flex-shrink: 0;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--md-primary);
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
+            border: 4px solid var(--md-bg);
+            transition: all var(--md-duration) var(--md-ease);
+        }
+
+        .step-item:hover .step-indicator {
+            transform: scale(1.08);
+            background: var(--md-accent);
+        }
+
+        .step-card {
+            flex-grow: 1;
+            background: var(--md-surface-card);
+            border: 1px solid var(--md-outline);
+            border-radius: var(--radius-lg);
+            padding: 30px 32px;
+            box-shadow: var(--md-shadow);
+            transition: all var(--md-duration) var(--md-ease);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .step-card:hover {
+            box-shadow: var(--md-shadow-hover);
+            border-color: var(--md-outline-hover);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .step-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--md-text);
+            letter-spacing: -0.01em;
+        }
+
+        .step-subtext {
+            font-size: 15px;
+            color: var(--md-text-muted);
+            line-height: 1.6;
+        }
+
+        .step-list {
+            padding-left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 15px;
+            color: var(--md-text);
+        }
+
+        .step-list li {
+            padding-left: 4px;
+        }
+
+        .step-sublist {
+            margin-top: 6px;
+            padding-left: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            list-style-type: circle;
+        }
+
+        /* Context Callout Boxes */
+        .callout-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 18px;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            line-height: 1.55;
+        }
+
+        .callout-note {
+            background: var(--md-surface-container);
+            border-left: 4px solid var(--md-primary);
+            color: var(--md-text);
+        }
+
+        .callout-tip {
+            background: var(--md-surface-container);
+            border-left: 4px solid var(--md-accent);
+            color: var(--md-text);
+        }
+
+        .callout-box svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            margin-top: 2px;
+            fill: var(--md-primary);
+        }
+
+        /* Screenshot Frame & Lightbox Trigger */
+        .screenshot-frame {
+            position: relative;
+            background: var(--md-surface-container);
+            border: 1px solid var(--md-outline);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            margin-top: 8px;
+            cursor: pointer;
+            transition: all var(--md-duration) var(--md-ease);
+        }
+
+        .screenshot-frame:hover {
+            transform: translateY(-2px);
+            border-color: var(--md-primary);
+            box-shadow: var(--md-shadow);
+        }
+
+        .screenshot-browser-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            background: var(--md-surface);
+            border-bottom: 1px solid var(--md-outline);
+        }
+
+        .browser-dots {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .browser-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(125, 125, 125, 0.35);
+        }
+
+        .browser-url-pill {
+            margin-left: 6px;
+            background: var(--md-surface-card);
+            border: 1px solid var(--md-outline);
+            padding: 3px 12px;
+            border-radius: var(--radius-full);
+            font-size: 11.5px;
+            color: var(--md-text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 320px;
+        }
+
+        .screenshot-img {
+            display: block;
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            object-position: top center;
+            transition: filter var(--md-duration) var(--md-ease);
+        }
+
+        .screenshot-frame:hover .screenshot-img {
+            filter: brightness(0.97);
+        }
+
+        .screenshot-expand-overlay {
+            position: absolute;
+            bottom: 14px;
+            right: 14px;
+            background: var(--md-surface-card);
+            color: var(--md-text);
+            border: 1px solid var(--md-outline);
+            padding: 6px 14px;
+            border-radius: var(--radius-full);
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            pointer-events: none;
+            transition: all var(--md-duration) var(--md-ease);
+        }
+
+        .screenshot-expand-overlay svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        .screenshot-frame:hover .screenshot-expand-overlay {
+            background: var(--md-primary);
+            color: #ffffff;
+            border-color: var(--md-primary);
+        }
+
+        /* ==========================================================================
+           Interactive Lightbox Modal
+           ========================================================================== */
+        .lightbox-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            transition: opacity var(--md-duration) var(--md-ease);
+        }
+
+        .lightbox-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 88vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            transform: scale(0.96);
+            transition: transform var(--md-duration) var(--md-ease);
+        }
+
+        .lightbox-modal.active .lightbox-content {
+            transform: scale(1);
+        }
+
+        .lightbox-img {
+            max-width: 100%;
+            max-height: calc(88vh - 48px);
+            border-radius: var(--radius-md);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            object-fit: contain;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: var(--md-surface-card);
+        }
+
+        .lightbox-caption {
+            color: #f1f5f9;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -46px;
+            right: 0;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--md-duration) var(--md-ease);
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: scale(1.1);
+        }
+
+        .lightbox-close svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+        }
+
+        /* ==========================================================================
+           Interactive Collapsible FAQ Accordion Section
+           ========================================================================== */
+        .faq-section {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .faq-card {
+            background: var(--md-surface-card);
+            border: 1px solid var(--md-outline);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--md-shadow);
+            transition: all var(--md-duration) var(--md-ease);
+        }
+
+        .faq-card:hover {
+            border-color: var(--md-outline-hover);
+        }
+
+        .faq-question-btn {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 22px 28px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            cursor: pointer;
+            color: var(--md-text);
+            font-size: 17px;
+            font-weight: 600;
+            outline: none;
+            transition: background var(--md-duration) var(--md-ease);
+        }
+
+        .faq-question-btn:focus-visible {
+            background: var(--md-surface-container);
+        }
+
+        .faq-card.open .faq-question-btn {
+            color: var(--md-primary);
+        }
+
+        .faq-chevron {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            fill: var(--md-text-muted);
+            transition: transform var(--md-duration) var(--md-ease), fill var(--md-duration) var(--md-ease);
+        }
+
+        .faq-card.open .faq-chevron {
+            transform: rotate(180deg);
+            fill: var(--md-primary);
+        }
+
+        .faq-answer-collapse {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height var(--md-duration) var(--md-ease);
+        }
+
+        .faq-card.open .faq-answer-collapse {
+            max-height: 800px;
+        }
+
+        .faq-answer-content {
+            padding: 0 28px 24px 28px;
+            font-size: 15px;
+            line-height: 1.65;
+            color: var(--md-text-muted);
+            border-top: 1px solid transparent;
+        }
+
+        .faq-card.open .faq-answer-content {
+            border-top-color: var(--md-outline);
+            padding-top: 16px;
+        }
+
+        .faq-answer-content p {
+            margin-bottom: 12px;
+            color: var(--md-text);
+        }
+
+        .faq-answer-content ul {
+            padding-left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .faq-answer-content li {
+            color: var(--md-text);
+        }
+
+        .faq-benefit-tag {
+            display: inline-block;
+            font-weight: 700;
+            color: var(--md-primary);
+        }
+
+        /* ==========================================================================
+           Footer
+           ========================================================================== */
+        .footer-card {
+            background: var(--md-surface);
+            border: 1px solid var(--md-outline);
+            border-radius: var(--radius-xl);
+            padding: 30px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            box-shadow: var(--md-shadow);
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 13.5px;
+            color: var(--md-text-muted);
+        }
+
+        .footer-brand a {
+            color: var(--md-primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer-brand a:hover {
             text-decoration: underline;
         }
 
-        @media (prefers-color-scheme: dark) {
+        .footer-links {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            text-decoration: none;
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--md-text-muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color var(--md-duration) var(--md-ease);
+        }
+
+        .footer-link:hover {
+            color: var(--md-primary);
+        }
+
+        .footer-link svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        /* Back to top floating pill */
+        .back-to-top-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--md-primary);
+            color: #ffffff;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(12px);
+            transition: all var(--md-duration) var(--md-ease);
+            z-index: 99;
+        }
+
+        .back-to-top-btn.visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .back-to-top-btn:hover {
+            transform: translateY(-4px) scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        .back-to-top-btn svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+        }
+
+        /* ==========================================================================
+           Mobile Responsiveness
+           ========================================================================== */
+        @media (max-width: 768px) {
             body {
-                background-color: #121212;
-                color: #e0e0e0;
+                padding: 0 12px 36px;
             }
 
-            section {
-                background: #1e1e1e;
+            .hero-card {
+                padding: 28px 24px;
             }
 
-            h1,
-            h2,
-            h3 {
-                color: #90caf9;
+            .stepper-timeline::before {
+                left: 20px;
             }
 
-            footer {
-                background: #1e1e1e;
-                color: #90caf9;
+            .step-indicator {
+                width: 42px;
+                height: 42px;
+                font-size: 15px;
+            }
+
+            .step-item {
+                gap: 16px;
+            }
+
+            .step-card {
+                padding: 22px 20px;
+            }
+
+            .footer-card {
+                padding: 24px 20px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hero-actions-row {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
     </style>
 </head>
 
 <body>
-    <h1>How to Obtain a WeatherAPI's API Key</h1>
+    <div class="page-wrap">
+        <!-- Top App Bar -->
+        <header class="app-bar">
+            <a href="https://github.com/prem-k-r/MaterialYouNewTab" target="_blank" rel="noopener noreferrer"
+                class="brand-badge" title="Material You New Tab">
+                <img src="../favicon/icon128.png" alt="MYNT Logo" class="brand-logo">
+                <div class="brand-meta">
+                    <span class="brand-title">WeatherAPI Setup Guide</span>
+                    <span class="brand-subtitle">Material You New Tab</span>
+                </div>
+            </a>
 
-    <section>
-        <h2>Step 1: Visit the WeatherAPI Website</h2>
-        <p>Navigate to the WeatherAPI official website: <a href="https://www.weatherapi.com/"
-                target="_blank">https://www.weatherapi.com/</a>.</p>
-        <img src="https://i.ibb.co/84gMfmJ/Screenshot-2024-12-07-121438.png" alt="WeatherAPI Homepage" border="0">
-    </section>
+            <div class="bar-actions">
+                <nav class="nav-chips" aria-label="Page navigation">
+                    <a href="#overview" class="nav-chip active">Overview</a>
+                    <a href="#steps" class="nav-chip">Steps</a>
+                    <a href="#faqs" class="nav-chip">FAQs</a>
+                </nav>
 
-    <section>
-        <h2>Step 2: Sign Up for an Account</h2>
-        <ol>
-            <li>Click on the <strong>Sign Up</strong> button located at the top right corner of the homepage.</li>
-            <li>Fill in the required fields:
-                <ul>
-                    <li><strong>Email Address:</strong> Provide a valid email address.</li>
-                    <li><strong>Password:</strong> Create a secure password.</li>
-                </ul>
-            </li>
-            <li>Agree to the terms and conditions.</li>
-            <li>Complete the CAPTCHA verification if prompted.</li>
-            <li>Click <strong>Sign Up</strong> to create your account.</li>
-        </ol>
-        <img src="https://i.ibb.co/xX9psXB/Screenshot-2024-12-07-121609.png" alt="Sign Up Form" border="0">
-        <p><em>Note: If you already have an account, click <strong>Login</strong> and proceed with your
-                credentials.</em></p>
-    </section>
+                <!-- Light / Dark Mode Toggle -->
+                <button class="theme-mode-btn" id="themeModeBtn" aria-label="Toggle theme appearance"
+                    title="Toggle Theme">
+                    <svg id="themeIcon" viewBox="0 0 24 24">
+                        <path
+                            d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-3.03 0-5.5-2.47-5.5-5.5 0-1.82.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z" />
+                    </svg>
+                </button>
+            </div>
+        </header>
 
-    <section>
-        <h2>Step 3: Verify Your Email Address</h2>
-        <p>Check your email inbox for a verification email from WeatherAPI. Open the email and click on the verification
-            link provided.</p>
-        <p><em>Tip: Check your spam or junk folder if you don’t see the email in your inbox.</em></p>
-    </section>
+        <!-- Hero Overview Card -->
+        <section class="hero-card" id="overview">
+            <div class="hero-top-row">
+                <div class="hero-badge-pill">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4 0-2.05 1.53-3.76 3.56-3.97l1.07-.11.5-.95C8.08 7.14 9.94 6 12 6c2.62 0 4.88 1.86 5.39 4.43l.3 1.5 1.53.11c1.56.1 2.78 1.41 2.78 2.96 0 1.65-1.35 3-3 3z" />
+                    </svg>
+                    <span>Weather Setup</span>
+                </div>
+            </div>
 
-    <section>
-        <h2>Step 4: Log In to Your Account</h2>
-        <ol>
-            <li>Return to the WeatherAPI website.</li>
-            <li>Click on <strong>Login</strong>.</li>
-            <li>Enter your email address and password.</li>
-            <li>Click <strong>Login</strong> to access your account.</li>
-        </ol>
-        <img src="https://i.ibb.co/71PFHvB/Screenshot-2024-12-07-121704.png" alt="Login Page" border="0">
-    </section>
+            <h1 class="hero-headline">
+                How to Obtain a Free <span class="highlight">WeatherAPI Key</span>
+            </h1>
 
-    <section>
-        <h2>Step 5: Copy Your API Key</h2>
-        <ol>
-            <li>Once logged in, go to the <strong>Dashboard</strong>.</li>
-            <li>If the API section isn’t open, locate and open it.</li>
-            <li>You will see your API key displayed with a <strong>Copy</strong> option. Click it to copy your API key.
-            </li>
-        </ol>
-        <img src="https://i.ibb.co/jfW8f65/IMG-20241207-122916.png" alt="Dashboard with API Key" border="0">
-    </section>
+            <p class="hero-desc">
+                Follow this quick step-by-step tutorial to get your personal, free API key from WeatherAPI.com. A personal
+                key provides uninterrupted live forecasts, location search autocompletion, and complete immunity from
+                shared community limit caps.
+            </p>
 
-    <section>
-        <h2>Step 6: Paste Your API Key</h2>
-        <ol>
-            <li>Paste <b>your API key</b> into the WeatherAPI key field in the extension menu.</li>
-            <li>Press enter or click on the Save button to integrate it.</li>
-        </ol>
-        <img src="https://i.ibb.co/CM3yrCG/image.png" alt="Paste API Key" border="0">
-    </section>
+            <div class="hero-highlights-row">
+                <div class="highlight-chip">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                    </svg>
+                    <span>100% Free Forever</span>
+                </div>
+                <div class="highlight-chip">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm4.2 14.2L11 13V7h1.5v5.2l4.5 2.7-.8 1.3z" />
+                    </svg>
+                    <span>Takes ~2 Minutes</span>
+                </div>
+                <div class="highlight-chip">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z" />
+                    </svg>
+                    <span>1,000,000 Monthly Calls</span>
+                </div>
+            </div>
 
-    <section>
-        <h2>FAQs</h2>
+            <div class="hero-actions-row">
+                <a href="https://www.weatherapi.com/signup.aspx" target="_blank" rel="noopener noreferrer"
+                    class="btn-primary">
+                    <span>Open WeatherAPI.com</span>
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                    </svg>
+                </a>
 
-        <h3>Why is the location inaccurate?</h3>
-        <p>The extension determines your location using your <b>IP address</b>, which can often be imprecise. If the
-            detected location differs from your actual location, you can:</p>
-        <ul>
-            <li>Manually enter your <b>city name</b> or <b>geographic coordinates</b>.</li>
-            <li>Use the <b>GPS</b> option to fetch your location for greater accuracy.</li>
-        </ul>
+                <div class="theme-picker-row">
+                    <span class="palette-label">Theme Palette:</span>
+                    <div class="palette-dots">
+                        <button class="color-dot dot-blue active" data-color="blue" title="Blue Theme"
+                            aria-label="Select Blue Theme"></button>
+                        <button class="color-dot dot-green" data-color="green" title="Green Theme"
+                            aria-label="Select Green Theme"></button>
+                        <button class="color-dot dot-purple" data-color="purple" title="Purple Theme"
+                            aria-label="Select Purple Theme"></button>
+                        <button class="color-dot dot-peach" data-color="peach" title="Peach Theme"
+                            aria-label="Select Peach Theme"></button>
+                        <button class="color-dot dot-cyan" data-color="cyan" title="Cyan Theme"
+                            aria-label="Select Cyan Theme"></button>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <h3>Why do I need an API key?</h3>
-        <p>An API key serves as a unique identifier for managing access and monitoring usage.</p>
-        <ul>
-            <li>Our extension currently uses <b>shared</b> API keys that allow up to 15,000,000 calls per month. With
-                over 300,000 active users, these shared keys can reach their limit quickly. Once the limit is reached,
-                weather data will no longer be accessible until the limit resets the following month.</li>
-            <li>Using your <b>own API key</b> ensures that weather data remains accessible.</li>
-        </ul>
+        <!-- Stepper Timeline Section -->
+        <section id="steps">
+            <div class="section-header">
+                <div>
+                    <div class="section-tag">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z" />
+                        </svg>
+                        <span>Step-by-Step Instructions</span>
+                    </div>
+                    <h2 class="section-title">Walkthrough Guide</h2>
+                </div>
+            </div>
 
-        <h3>What are the benefits of using my own API key?</h3>
-        <p>Using your own unique API key provides several key advantages:</p>
-        <ul>
-            <li><strong>No Disruption:</strong> Using your own API key helps you avoid unexpected limits and ensures
-                there are no disruptions in service, keeping your access to weather data uninterrupted.</li>
-            <li><strong>Location Suggestions::</strong> Enable location search suggestions in the location input field,
-                allowing you to quickly find and select accurate location options as you type.</li>
-            <li><strong>Analytics:</strong> Access detailed insights into your API usage with comprehensive reports
-                available through your account dashboard.</li>
-            <li><strong>Privacy:</strong> Your API activity is securely tied only to your account, ensuring that your
-                data remains private and protected from unauthorized access.</li>
-            <li><strong>Compliance:</strong> Ensure adherence to WeatherAPI's terms of service and usage policies, and
-                avoiding violations.</li>
-        </ul>
-    </section>
+            <div class="stepper-timeline">
+                <!-- Step 1 -->
+                <div class="step-item">
+                    <div class="step-indicator">01</div>
+                    <div class="step-card">
+                        <div class="step-header">
+                            <h3 class="step-title">Visit the WeatherAPI Website</h3>
+                        </div>
+                        <p class="step-subtext">
+                            Navigate to the official WeatherAPI portal at <a href="https://www.weatherapi.com/"
+                                target="_blank" rel="noopener noreferrer"
+                                style="color: var(--md-primary); font-weight: 600; text-decoration: underline;">https://www.weatherapi.com/</a>.
+                        </p>
 
-    <footer>
-        <p>Weather data is powered by <a href="https://www.weatherapi.com/" title="Free Weather API">WeatherAPI.com</a>
-        </p>
-    </footer>
+                        <div class="screenshot-frame"
+                            data-img="https://i.ibb.co/84gMfmJ/Screenshot-2024-12-07-121438.png"
+                            data-caption="WeatherAPI Homepage — Notice the Sign Up link at top right.">
+                            <div class="screenshot-browser-bar">
+                                <div class="browser-dots">
+                                    <div class="browser-dot"></div>
+                                    <div class="browser-dot"></div>
+                                    <div class="browser-dot"></div>
+                                </div>
+                                <span class="browser-url-pill">https://www.weatherapi.com</span>
+                            </div>
+                            <img src="https://i.ibb.co/84gMfmJ/Screenshot-2024-12-07-121438.png"
+                                alt="WeatherAPI Homepage" class="screenshot-img" loading="lazy">
+                            <div class="screenshot-expand-overlay">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M15 3l2.3 2.3-2.89 2.87 1.42 1.42L18.7 6.7 21 9V3h-6zM3 9l2.3-2.3 2.87 2.89 1.42-1.42L6.7 5.3 9 3H3v6zm6 12l-2.3-2.3 2.89-2.87-1.42-1.42L5.3 17.3 3 15v6h6zm12-6l-2.3 2.3-2.87-2.89-1.42 1.42 2.89 2.87L15 21h6v-6z" />
+                                </svg>
+                                <span>Click to enlarge</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step-item">
+                    <div class="step-indicator">02</div>
+                    <div class="step-card">
+                        <div class="step-header">
+                            <h3 class="step-title">Sign Up for an Account</h3>
+                        </div>
+
+                        <ol class="step-list">
+                            <li>Click on the <strong>Sign Up</strong> button located at the top right corner of the homepage.</li>
+                            <li>Fill in the required fields:
+                                <ul class="step-sublist">
+                                    <li><strong>Email Address:</strong> Provide a valid email address that you have access to.</li>
+                                    <li><strong>Password:</strong> Create a strong, secure password.</li>
+                                </ul>
+                            </li>
+                            <li>Agree to the terms and conditions.</li>
+                            <li>Complete the CAPTCHA verification if prompted.</li>
+                            <li>Click <strong>Sign Up</strong> to create your free developer account.</li>
+                        </ol>
+
+                        <div class="callout-box callout-note">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
+                            </svg>
+                            <div>
+                                <strong>Already registered?</strong> If you already have a WeatherAPI account, simply click
+                                <strong>Login</strong> and proceed with your existing credentials.
+                            </div>
+                        </div>
+
+                        <div class="screenshot-frame"
+                            data-img="https://i.ibb.co/xX9psXB/Screenshot-2024-12-07-121609.png"
+                            data-caption="WeatherAPI Registration Form">
+                            <div class="screenshot-browser-bar">
+                                <div class="browser-dots">
+                                    <div class="browser-dot"></div>
+                                    <div class="browser-dot"></div>
+                                    <div class="browser-dot"></div>
+                                </div>
+                                <span class="browser-url-pill">weatherapi.com/signup.aspx</span>
+                            </div>
+                            <img src="https://i.ibb.co/xX9psXB/Screenshot-2024-12-07-121609.png" alt="Sign Up Form"
+                                class="screenshot-img" loading="lazy">
+                            <div class="screenshot-expand-overlay">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M15 3l2.3 2.3-2.89 2.87 1.42 1.42L18.7 6.7 21 9V3h-6zM3 9l2.3-2.3 2.87 2.89 1.42-1.42L6.7 5.3 9 3H3v6zm6 12l-2.3-2.3 2.89-2.87-1.42-1.42L5.3 17.3 3 15v6h6zm12-6l-2.3 2.3-2.87-2.89-1.42 1.42 2.89 2.87L15 21h6v-6z" />
+                                </svg>
+                                <span>Click to enlarge</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step-item">
+                    <div class="step-indicator">03</div>
+                    <div class="step-card">
+                        <div class="step-header">
+                            <h3 class="step-title">Verify Your Email Address</h3>
+                        </div>
+                        <p class="step-subtext">
+                            Check your email inbox for a verification email sent by WeatherAPI. Open the message and click
+                            on the confirmation link to activate your account.
+                        </p>
+
+                        <div class="callout-box callout-tip">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
+                            </svg>
+                            <div>
+                                <strong>Helpful Tip:</strong> If the email doesn't arrive within 1–2 minutes, be sure to
+                                check your spam, junk, or promotions folder.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="step-item">
+                    <div class="step-indicator">04</div>
+                    <div class="step-card">
+                        <div class="step-header">
+                            <h3 class="step-title">Log In to Your Account</h3>
+                        </div>
+
+                        <ol class="step-list">
+                            <li>Return to the WeatherAPI website.</li>
+                            <li>Click on <strong>Login</strong> in the top navigation bar.</li>
+                            <li>Enter your registered email address and password.</li>
+                            <li>Click <strong>Login</strong> to access your dashboard.</li>
+                        </ol>
+
+                        <div class="screenshot-frame"
+                            data-img="https://i.ibb.co/71PFHvB/Screenshot-2024-12-07-121704.png"
+                            data-caption="WeatherAPI Login Page">
+                            <div class="screenshot-browser-bar">
+                                <div class="browser-dots">
+                                    <div class="browser-dot"></div>
+                                    <div class="browser-dot"></div>
+                                    <div class="browser-dot"></div>
+                                </div>
+                                <span class="browser-url-pill">weatherapi.com/login.aspx</span>
+                            </div>
+                            <img src="https://i.ibb.co/71PFHvB/Screenshot-2024-12-07-121704.png" alt="Login Page"
+                                class="screenshot-img" loading="lazy">
+                            <div class="screenshot-expand-overlay">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M15 3l2.3 2.3-2.89 2.87 1.42 1.42L18.7 6.7 21 9V3h-6zM3 9l2.3-2.3 2.87 2.89 1.42-1.42L6.7 5.3 9 3H3v6zm6 12l-2.3-2.3 2.89-2.87-1.42-1.42L5.3 17.3 3 15v6h6zm12-6l-2.3 2.3-2.87-2.89-1.42 1.42 2.89 2.87L15 21h6v-6z" />
+                                </svg>
+                                <span>Click to enlarge</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="step-item">
+                    <div class="step-indicator">05</div>
+                    <div class="step-card">
+                        <div class="step-header">
+                            <h3 class="step-title">Copy Your API Key</h3>
+                        </div>
+
+                        <ol class="step-list">
+                            <li>Once logged in, open the <strong>Dashboard</strong>.</li>
+                            <li>Locate the <strong>API Key</strong> section on your account overview.</li>
+                            <li>You will see your private API key string displayed alongside a convenient
+                                <strong>Copy</strong> icon. Click it to copy your key to your clipboard.</li>
+                        </ol>
+
+                        <div class="screenshot-frame"
+                            data-img="https://i.ibb.co/jfW8f65/IMG-20241207-122916.png"
+                            data-caption="WeatherAPI Account Dashboard with API Key Section">
+                            <div class="screenshot-browser-bar">
+                                <div class="browser-dots">
+                                    <div class="browser-dot"></div>
+                                    <div class="browser-dot"></div>
+                                    <div class="browser-dot"></div>
+                                </div>
+                                <span class="browser-url-pill">weatherapi.com/my/</span>
+                            </div>
+                            <img src="https://i.ibb.co/jfW8f65/IMG-20241207-122916.png" alt="Dashboard with API Key"
+                                class="screenshot-img" loading="lazy">
+                            <div class="screenshot-expand-overlay">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M15 3l2.3 2.3-2.89 2.87 1.42 1.42L18.7 6.7 21 9V3h-6zM3 9l2.3-2.3 2.87 2.89 1.42-1.42L6.7 5.3 9 3H3v6zm6 12l-2.3-2.3 2.89-2.87-1.42-1.42L5.3 17.3 3 15v6h6zm12-6l-2.3 2.3-2.87-2.89-1.42 1.42 2.89 2.87L15 21h6v-6z" />
+                                </svg>
+                                <span>Click to enlarge</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 6 -->
+                <div class="step-item">
+                    <div class="step-indicator">06</div>
+                    <div class="step-card">
+                        <div class="step-header">
+                            <h3 class="step-title">Paste Your API Key into MYNT</h3>
+                        </div>
+
+                        <ol class="step-list">
+                            <li>Open a new tab or open your <strong>Material You New Tab</strong> extension settings.</li>
+                            <li>Under the Weather options, paste <strong>your API key</strong> into the WeatherAPI key input
+                                field.</li>
+                            <li>Press <strong>Enter</strong> or click the <strong>Save</strong> button to activate it.</li>
+                        </ol>
+
+                        <div class="callout-box callout-note">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                            </svg>
+                            <div>
+                                <strong>Success!</strong> Your weather widget is now powered by your dedicated key, ensuring
+                                lightning-fast responses, accurate forecasts, and location auto-suggest.
+                            </div>
+                        </div>
+
+                        <div class="screenshot-frame"
+                            data-img="https://i.ibb.co/CM3yrCG/image.png"
+                            data-caption="Paste WeatherAPI Key in Material You New Tab Settings">
+                            <div class="screenshot-browser-bar">
+                                <div class="browser-dots">
+                                    <div class="browser-dot"></div>
+                                    <div class="browser-dot"></div>
+                                    <div class="browser-dot"></div>
+                                </div>
+                                <span class="browser-url-pill">chrome://newtab/settings/weather</span>
+                            </div>
+                            <img src="https://i.ibb.co/CM3yrCG/image.png" alt="Paste API Key in Settings"
+                                class="screenshot-img" loading="lazy">
+                            <div class="screenshot-expand-overlay">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M15 3l2.3 2.3-2.89 2.87 1.42 1.42L18.7 6.7 21 9V3h-6zM3 9l2.3-2.3 2.87 2.89 1.42-1.42L6.7 5.3 9 3H3v6zm6 12l-2.3-2.3 2.89-2.87-1.42-1.42L5.3 17.3 3 15v6h6zm12-6l-2.3 2.3-2.87-2.89-1.42 1.42 2.89 2.87L15 21h6v-6z" />
+                                </svg>
+                                <span>Click to enlarge</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive FAQ Accordion Section -->
+        <section class="faq-section" id="faqs">
+            <div class="section-header">
+                <div>
+                    <div class="section-tag">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z" />
+                        </svg>
+                        <span>Got Questions?</span>
+                    </div>
+                    <h2 class="section-title">Frequently Asked Questions</h2>
+                </div>
+            </div>
+
+            <!-- FAQ 1 -->
+            <div class="faq-card open">
+                <button class="faq-question-btn" aria-expanded="true" aria-controls="faq-ans-1">
+                    <span>Why is the detected location inaccurate?</span>
+                    <svg class="faq-chevron" viewBox="0 0 24 24">
+                        <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+                    </svg>
+                </button>
+                <div class="faq-answer-collapse" id="faq-ans-1">
+                    <div class="faq-answer-content">
+                        <p>
+                            By default, the extension estimates your geographic location using your <strong>IP address</strong>,
+                            which is often routed through your internet service provider's regional hub or proxy server.
+                            If this differs from your real location:
+                        </p>
+                        <ul>
+                            <li>Manually type your exact <strong>city name</strong> or <strong>geographic coordinates (lat, lon)</strong> into the settings.</li>
+                            <li>Switch on the <strong>GPS / Geolocation</strong> option in the extension to fetch hardware-level precision.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="faq-card">
+                <button class="faq-question-btn" aria-expanded="false" aria-controls="faq-ans-2">
+                    <span>Why do I need my own API key?</span>
+                    <svg class="faq-chevron" viewBox="0 0 24 24">
+                        <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+                    </svg>
+                </button>
+                <div class="faq-answer-collapse" id="faq-ans-2">
+                    <div class="faq-answer-content">
+                        <p>
+                            An API key serves as a unique credential for managing access and monitoring weather requests:
+                        </p>
+                        <ul>
+                            <li><strong>Shared Quota Exhaustion:</strong> Material You New Tab provides built-in shared keys that allow up to 15,000,000 monthly calls. With over 300,000+ active users worldwide, this collective quota can occasionally be exhausted near month-end. When exhausted, weather updates pause until the monthly reset.</li>
+                            <li><strong>Your Dedicated Allocation:</strong> Adding your own personal key gives you an independent allowance of 1,000,000 calls per month exclusively for your browser, guaranteeing zero downtime.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="faq-card">
+                <button class="faq-question-btn" aria-expanded="false" aria-controls="faq-ans-3">
+                    <span>What are the key benefits of using my own API key?</span>
+                    <svg class="faq-chevron" viewBox="0 0 24 24">
+                        <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+                    </svg>
+                </button>
+                <div class="faq-answer-collapse" id="faq-ans-3">
+                    <div class="faq-answer-content">
+                        <p>Registering your personal key brings significant quality-of-life benefits:</p>
+                        <ul>
+                            <li><span class="faq-benefit-tag">Zero Disruption:</span> Complete immunity from community usage caps. Your forecast will always display smoothly.</li>
+                            <li><span class="faq-benefit-tag">Location Autocomplete:</span> Unlocks live search recommendations as you type in the location field for quick, accurate selection.</li>
+                            <li><span class="faq-benefit-tag">Usage Analytics:</span> Monitor your personal request statistics, bandwidth, and latency logs directly in your WeatherAPI dashboard.</li>
+                            <li><span class="faq-benefit-tag">Privacy & Security:</span> Your queries are linked solely to your personal developer account, ensuring full control.</li>
+                            <li><span class="faq-benefit-tag">Full Compliance:</span> Complete compliance with WeatherAPI's fair use policies.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer-card">
+            <div class="footer-brand">
+                <span>Weather data is powered by <a href="https://www.weatherapi.com/" target="_blank"
+                        rel="noopener noreferrer">WeatherAPI.com</a></span>
+                <span>Material You New Tab · Free & Open Source</span>
+            </div>
+
+            <ul class="footer-links">
+                <li>
+                    <a href="https://github.com/prem-k-r/MaterialYouNewTab" target="_blank" rel="noopener noreferrer"
+                        class="footer-link">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+                        </svg>
+                        <span>GitHub</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="feedback.html" class="footer-link">Feedback</a>
+                </li>
+                <li>
+                    <a href="whats-new.html" class="footer-link">What's New</a>
+                </li>
+                <li>
+                    <a href="../privacy-policy.html" class="footer-link">Privacy Policy</a>
+                </li>
+            </ul>
+        </footer>
+    </div>
+
+    <!-- Back to top button -->
+    <button class="back-to-top-btn" id="backToTopBtn" aria-label="Scroll back to top" title="Scroll to top">
+        <svg viewBox="0 0 24 24">
+            <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z" />
+        </svg>
+    </button>
+
+    <!-- Fullscreen Screenshot Lightbox Modal -->
+    <div class="lightbox-modal" id="lightboxModal" role="dialog" aria-modal="true" aria-label="Screenshot Preview">
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightboxClose" aria-label="Close Preview" title="Close Preview">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                </svg>
+            </button>
+            <img src="" alt="Screenshot" id="lightboxImg" class="lightbox-img">
+            <div class="lightbox-caption" id="lightboxCaption"></div>
+        </div>
+    </div>
+
+    <!-- Interactive JavaScript Engine -->
+    <script>
+        (function () {
+            const html = document.documentElement;
+            const themeBtn = document.getElementById('themeModeBtn');
+            const themeIcon = document.getElementById('themeIcon');
+            const colorDots = document.querySelectorAll('.color-dot');
+            const backToTopBtn = document.getElementById('backToTopBtn');
+            const navChips = document.querySelectorAll('.nav-chip');
+
+            // 1. Theme Engine: Sync with extension / feedback.html localStorage
+            try {
+                const storedColor = localStorage.getItem('selectedTheme');
+                const storedMode = localStorage.getItem('preferredTheme');
+
+                if (storedColor && ['blue', 'green', 'purple', 'peach', 'cyan'].includes(storedColor.toLowerCase())) {
+                    setColorTheme(storedColor.toLowerCase());
+                }
+
+                if (storedMode && ['light', 'dark', 'system'].includes(storedMode.toLowerCase())) {
+                    setModeTheme(storedMode.toLowerCase());
+                }
+            } catch (e) {
+                // Storage access fallback
+            }
+
+            function setColorTheme(color) {
+                html.dataset.themeColor = color;
+                try { localStorage.setItem('selectedTheme', color); } catch (e) { }
+
+                colorDots.forEach(dot => {
+                    dot.classList.toggle('active', dot.dataset.color === color);
+                });
+            }
+
+            colorDots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    setColorTheme(dot.dataset.color);
+                });
+            });
+
+            function isDarkActive() {
+                const mode = html.dataset.themeMode;
+                if (mode === 'dark') return true;
+                if (mode === 'light') return false;
+                return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            }
+
+            function updateThemeIcon() {
+                const dark = isDarkActive();
+                if (dark) {
+                    // Sun icon
+                    themeIcon.innerHTML = `<path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>`;
+                } else {
+                    // Moon icon
+                    themeIcon.innerHTML = `<path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-3.03 0-5.5-2.47-5.5-5.5 0-1.82.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/>`;
+                }
+            }
+
+            function setModeTheme(mode) {
+                html.dataset.themeMode = mode;
+                try { localStorage.setItem('preferredTheme', mode); } catch (e) { }
+                updateThemeIcon();
+            }
+
+            if (themeBtn) {
+                themeBtn.addEventListener('click', () => {
+                    const nextMode = isDarkActive() ? 'light' : 'dark';
+                    setModeTheme(nextMode);
+                });
+            }
+
+            // Listen for system theme changes if in system mode
+            if (window.matchMedia) {
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+                    if (html.dataset.themeMode === 'system') {
+                        updateThemeIcon();
+                    }
+                });
+            }
+
+            updateThemeIcon();
+
+            // 2. FAQ Accordion handler
+            const faqCards = document.querySelectorAll('.faq-card');
+            faqCards.forEach(card => {
+                const btn = card.querySelector('.faq-question-btn');
+                btn.addEventListener('click', () => {
+                    const isOpen = card.classList.contains('open');
+                    // Toggle current card
+                    card.classList.toggle('open', !isOpen);
+                    btn.setAttribute('aria-expanded', String(!isOpen));
+                });
+            });
+
+            // 3. Screenshot Lightbox Modal
+            const lightbox = document.getElementById('lightboxModal');
+            const lightboxImg = document.getElementById('lightboxImg');
+            const lightboxCaption = document.getElementById('lightboxCaption');
+            const lightboxClose = document.getElementById('lightboxClose');
+            const screenshotFrames = document.querySelectorAll('.screenshot-frame');
+
+            function openLightbox(src, caption) {
+                lightboxImg.src = src;
+                lightboxCaption.textContent = caption || '';
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeLightbox() {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+                lightboxImg.src = '';
+            }
+
+            screenshotFrames.forEach(frame => {
+                frame.addEventListener('click', () => {
+                    const src = frame.dataset.img || frame.querySelector('img').src;
+                    const caption = frame.dataset.caption || frame.querySelector('img').alt;
+                    openLightbox(src, caption);
+                });
+            });
+
+            lightboxClose.addEventListener('click', closeLightbox);
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                    closeLightbox();
+                }
+            });
+
+            // 4. Back to top button & Nav scroll spy
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+
+                // Update active nav chip based on scroll position
+                const sections = ['overview', 'steps', 'faqs'];
+                let currentSec = 'overview';
+                for (const sec of sections) {
+                    const el = document.getElementById(sec);
+                    if (el) {
+                        const rect = el.getBoundingClientRect();
+                        if (rect.top <= 140 && rect.bottom >= 140) {
+                            currentSec = sec;
+                            break;
+                        }
+                    }
+                }
+                navChips.forEach(chip => {
+                    chip.classList.toggle('active', chip.getAttribute('href') === '#' + currentSec);
+                });
+            }, { passive: true });
+
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        })();
+    </script>
 </body>
 
 </html>
