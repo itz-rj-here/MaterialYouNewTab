@@ -82,6 +82,10 @@ function alertPrompt(message, isAlert = true, okText, cancelText) {
 
         modalContainer.style.display = "flex";
         blurOverlay.style.display = "block";
+        requestAnimationFrame(() => {
+            modalContainer.classList.add("open");
+            blurOverlay.classList.add("open");
+        });
 
         // Disable background interaction
         document.body.style.pointerEvents = "none";
@@ -132,13 +136,17 @@ function alertPrompt(message, isAlert = true, okText, cancelText) {
         document.addEventListener("keydown", handleKeydown);
 
         function closeModal(result) {
-            modalContainer.style.display = "none";
-            blurOverlay.style.display = "none";
+            modalContainer.classList.remove("open");
+            blurOverlay.classList.remove("open");
             document.removeEventListener("keydown", handleKeydown);
             document.removeEventListener("mousedown", preventFocusLoss);
-            document.body.style.pointerEvents = "auto";
-            if (bookmarkContainer) bookmarkContainer.style.pointerEvents = "auto";
-            resolve(result);
+            setTimeout(() => {
+                modalContainer.style.display = "none";
+                blurOverlay.style.display = "none";
+                document.body.style.pointerEvents = "auto";
+                if (bookmarkContainer) bookmarkContainer.style.pointerEvents = "auto";
+                resolve(result);
+            }, 200);
         }
     });
 }

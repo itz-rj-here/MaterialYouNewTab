@@ -32,10 +32,10 @@ syncThemeChange(systemTheme);
 
     // Move indicator to correct position
     function moveIndicator(theme) {
-        const ltrIndex = theme === "light" ? 0 : theme === "dark" ? 1 : 2;
-        // If RTL, reverse the index
-        const index = isRTL ? 2 - ltrIndex : ltrIndex;
-        indicator.style.transform = `translateX(${index * 100}%)`;
+        const index = theme === "light" ? 0 : theme === "dark" ? 1 : 2;
+        indicator.style.setProperty("--seg-index", index);
+        const rtl = document.documentElement.dir === "rtl" || (typeof isRTL !== "undefined" && isRTL);
+        indicator.style.transform = `translateX(${rtl ? -index * 100 : index * 100}%)`;
     }
 
     // Apply theme mode (light/dark/system)

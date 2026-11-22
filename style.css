@@ -627,7 +627,7 @@ body[data-bg="wallpaper"] .tooltip-text {
 	top: 0;
 	inset-inline-end: 0;
 	opacity: 0;
-	transition: all 0.5s;
+	transition: opacity 0.3s var(--md-motion-ease);
 	pointer-events: none;
 	z-index: 4;
 }
@@ -685,7 +685,7 @@ body[data-bg="wallpaper"] .bookmark-button {
 	height: 100%;
 	background-color: var(--accentLightTint-blue);
 	color: white;
-	transition: inset-inline-end 0.3s var(--md-motion-ease);
+	transition: inset-inline-end 0.3s var(--md-motion-decelerate);
 	z-index: 5;
 	display: flex;
 	flex-direction: column;
@@ -2026,19 +2026,45 @@ body #bookmarkButton.bookmark-button.rotate {
 }
 
 /* Modal Styling */
+.bookmark-modal-overlay {
+	display: none;
+	position: fixed;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.4);
+	backdrop-filter: blur(4px);
+	z-index: 1000;
+	opacity: 0;
+	transition: opacity 0.2s ease-out;
+}
+
+.bookmark-modal-overlay.open {
+	opacity: 1;
+}
+
 #editBookmarkModal {
 	display: none;
 	position: fixed;
-	z-index: 5;
+	z-index: 1001;
 	left: 50%;
 	top: 50%;
-	transform: translate(-50%, -50%);
-	width: 400px;
+	transform: translate(-50%, -50%) scale(0.96);
+	opacity: 0;
+	width: min(400px, calc(100vw - 32px));
 	background: var(--bg-color-blue);
 	color: var(--textColorDark-blue);
 	border-radius: var(--round);
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
 	padding: 20px;
+	transition:
+		transform 0.22s var(--md-motion-decelerate),
+		opacity 0.18s ease-out;
+}
+
+#editBookmarkModal.open {
+	transform: translate(-50%, -50%) scale(1);
+	opacity: 1;
 }
 
 #editBookmarkModal .modal-content {
@@ -2192,7 +2218,26 @@ body #bookmarkButton.bookmark-button.rotate {
 	padding: 0;
 	display: grid;
 	place-items: center;
+	border: none;
+	cursor: pointer;
 	border-radius: 14px;
+	background-color: var(--accentLightTint-blue);
+	color: var(--darkColor-blue);
+	transition:
+		background-color 0.2s var(--md-motion-ease),
+		transform 0.15s var(--md-motion-ease);
+}
+
+#editBookmarkModal .bm-folder-action:hover {
+	background-color: color-mix(
+		in srgb,
+		var(--darkColor-blue) 25%,
+		var(--accentLightTint-blue)
+	);
+}
+
+#editBookmarkModal .bm-folder-action:active {
+	transform: scale(0.95);
 }
 
 #editBookmarkModal .bm-folder-action > span {
@@ -2222,28 +2267,48 @@ body #bookmarkButton.bookmark-button.rotate {
 	display: flex;
 	justify-content: space-between;
 	margin-top: 4px;
-	gap: 20px;
+	gap: 16px;
 }
 
-#editBookmarkModal button {
+#editBookmarkModal .modal-buttons button {
 	flex: 1;
 	padding: 10px 16px;
 	font-size: 0.96rem;
 	border: none;
 	cursor: pointer;
-	transition: 0.2s;
 	border-radius: var(--round);
+	transition:
+		background-color 0.2s var(--md-motion-ease),
+		transform 0.15s var(--md-motion-ease),
+		opacity 0.2s var(--md-motion-ease);
+}
+
+#editBookmarkModal .modal-buttons button:active {
+	transform: scale(0.97);
+}
+
+#saveBookmarkChanges {
 	background: var(--darkColor-blue);
 	color: white;
 }
 
+#saveBookmarkChanges:hover:not(:disabled) {
+	background: var(--darkerColor-blue);
+}
+
 #saveBookmarkChanges:disabled {
-	opacity: 0.5;
+	opacity: 0.45;
+	cursor: not-allowed;
 	pointer-events: none;
 }
 
-#editBookmarkModal button:hover {
-	background: var(--darkerColor-blue);
+#cancelBookmarkEdit {
+	background: color-mix(in srgb, var(--darkColor-blue) 14%, transparent);
+	color: var(--textColorDark-blue);
+}
+
+#cancelBookmarkEdit:hover {
+	background: color-mix(in srgb, var(--darkColor-blue) 24%, transparent);
 }
 /* ----------------- End of Bookmarks ----------------- */
 
@@ -2394,7 +2459,7 @@ body #bookmarkButton.bookmark-button.rotate {
 }
 
 .theme-transition #todoAdd {
-	transition: all 0.3s;
+	transition: background-color 0.3s var(--md-motion-ease), color 0.3s var(--md-motion-ease);
 }
 
 #todoInput {
@@ -2455,7 +2520,7 @@ body #bookmarkButton.bookmark-button.rotate {
 	top: 50%;
 	transform: translateY(-50%);
 	inset-inline-start: 8px;
-	transition: all 0.3s ease;
+	transition: opacity 0.2s ease, transform 0.2s var(--md-motion-ease);
 	user-select: none;
 }
 
@@ -2503,7 +2568,7 @@ body #bookmarkButton.bookmark-button.rotate {
 	line-height: 1.2;
 	color: var(--bg-color-blue);
 	text-align: center;
-	transition: all 0.3s ease;
+	transition: color 0.2s var(--md-motion-ease), transform 0.2s var(--md-motion-ease);
 	user-select: none;
 }
 
@@ -3189,7 +3254,7 @@ body[data-bg="wallpaper"] .micIcon {
 }
 
 .theme-transition .micIcon {
-	transition: all 0.5s;
+	transition: background-color 0.3s var(--md-motion-ease), border-color 0.3s var(--md-motion-ease);
 }
 
 .micIcon::after {
@@ -3207,7 +3272,7 @@ body[data-bg="wallpaper"] .micIcon {
 	border-top: 2px dashed var(--darkerColor-blue);
 	border-bottom: 2px dashed var(--darkerColor-blue);
 	animation: micAnimation 1s ease-in-out infinite;
-	transition: all 0.5s ease-in-out;
+	transition: border-color 0.3s var(--md-motion-ease);
 }
 
 @keyframes micAnimation {
@@ -3311,7 +3376,7 @@ body[data-bg="wallpaper"] .aiModeIcon::before {
 }
 
 .theme-transition .aiModeIcon {
-	transition: all 0.5s;
+	transition: background-color 0.3s var(--md-motion-ease), color 0.3s var(--md-motion-ease);
 }
 
 /* ---------End of .aiModeIcon------------- */
@@ -3337,7 +3402,7 @@ body[data-bg="wallpaper"] .aiModeIcon::before {
 }
 
 .theme-transition #enterBtn {
-	transition: all 0.3s;
+	transition: background-color 0.3s var(--md-motion-ease), color 0.3s var(--md-motion-ease);
 }
 
 /* ________________End of Searchbar______________________ */
@@ -3689,7 +3754,9 @@ html[lang="ur"] .qtRounder2 {
 	padding: 0;
 	border-radius: 0;
 	opacity: 0;
-	transition: all 0.3s;
+	transition:
+		opacity 0.2s var(--md-motion-ease),
+		visibility 0.2s;
 	font-size: 1rem;
 	white-space: nowrap;
 	overflow: hidden;
@@ -3940,11 +4007,18 @@ body[data-bg="wallpaper"] .aiToolsCont .hangno {
 	display: none;
 	position: relative;
 	margin-inline-start: 30px;
-	transition: all 500ms;
+	transition:
+		transform 0.25s var(--md-motion-decelerate),
+		opacity 0.2s ease-out;
 	gap: 0;
 	transform-origin: left;
-	transform: scale(0.5) translateX(-70px);
-	opacity: 0.2;
+	transform: scale(0.96) translateX(-20px);
+	opacity: 0;
+}
+
+:dir(rtl) .aiToolsCont .toolsCont {
+	transform-origin: right;
+	transform: scale(0.96) translateX(20px);
 }
 
 .aiToolsCont .toolsCont::before {
@@ -3977,7 +4051,10 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont::before {
 	text-decoration: none;
 	color: var(--textColorDark-blue);
 	font-size: 1rem;
-	transition: all 0.3s ease;
+	transition:
+		box-shadow 0.2s var(--md-motion-ease),
+		background-color 0.2s var(--md-motion-ease),
+		color 0.2s var(--md-motion-ease);
 	& div {
 		text-wrap-mode: nowrap;
 	}
@@ -4219,7 +4296,7 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 	z-index: 999;
 	opacity: 0;
 	/*we are increasing opacity in js file*/
-	transition: all 0.5s;
+	transition: opacity 0.3s var(--md-motion-ease);
 	overflow: hidden;
 }
 
@@ -4230,7 +4307,7 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 	height: 100%;
 	width: 400px;
 	/* change on some languages for fix the buttons */
-	transition: all 0.5s;
+	transition: transform 0.32s var(--md-motion-decelerate);
 	transform: translateX(100%);
 	background-color: var(--accentLightTint-blue);
 	border-end-start-radius: var(--round);
@@ -4279,7 +4356,9 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 	height: calc(100% - 140px);
 	/*for this 👁️ look above at🚦🛺 🚜*/
 	/* background-color: oldlace; */
-	transition: all 0.6s;
+	transition:
+		transform 0.28s var(--md-motion-decelerate),
+		opacity 0.22s ease-out;
 	transform: translateX(100%);
 	opacity: 0;
 	overflow-y: scroll;
@@ -4291,7 +4370,9 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 	padding: 0 var(--gap) var(--gap) var(--gap);
 	position: absolute;
 	scroll-behavior: smooth;
-	transition: all 0.6s;
+	transition:
+		transform 0.28s var(--md-motion-decelerate),
+		opacity 0.22s ease-out;
 }
 
 /* -----------Scrollbar for menu---------------- */
@@ -5151,7 +5232,7 @@ option:checked {
 	position: absolute;
 	top: 4px;
 	bottom: 4px;
-	left: 4px;
+	inset-inline-start: 4px;
 	width: calc((100% - 8px) / 3);
 	background: #ffffffe6;
 	border-radius: 30px;
@@ -5519,7 +5600,9 @@ option:checked {
 	border-radius: 100px;
 	overflow: hidden;
 	/* Hide the overflow when content expands */
-	transition: all 0.4s ease;
+	transition:
+		width 0.25s var(--md-motion-ease),
+		background-color 0.2s var(--md-motion-ease);
 	cursor: pointer;
 	margin-top: var(--gap);
 }
@@ -5538,7 +5621,10 @@ option:checked {
 	max-width: fit-content;
 	padding-inline-end: 0;
 	z-index: 1;
-	transition: all 0.4s ease;
+	transition:
+		opacity 0.2s var(--md-motion-ease),
+		transform 0.25s var(--md-motion-ease),
+		width 0.25s var(--md-motion-ease);
 	overflow: hidden;
 }
 
@@ -5561,7 +5647,7 @@ option:checked {
 	height: 30px;
 	border-radius: 100px;
 	z-index: 2;
-	transition: all 0.4s ease;
+	transition: transform 0.25s var(--md-motion-ease);
 }
 
 #menuCloseButton:hover .icon {
@@ -5694,12 +5780,14 @@ body[data-bg="wallpaper"] .dropdown-content {
 /* Vertical carousel for search engine switching */
 /* Main transition wrapper for the icon/content */
 .dropdown-btn > * {
-	transition: all 0.4s var(--md-motion-ease);
+	transition:
+		transform 0.25s var(--md-motion-ease),
+		opacity 0.2s var(--md-motion-ease);
 }
 
 /* Switching state - vertical slide with fade */
 .searchbar.engine-switching .dropdown-btn > * {
-	animation-duration: 0.4s;
+	animation-duration: 0.25s;
 	animation-timing-function: var(--md-motion-ease);
 	animation-fill-mode: both;
 }
@@ -6574,12 +6662,64 @@ body[data-bg="wallpaper"] .dropdown-content {
 	color: var(--textColorDark-dark);
 }
 
-.black-theme #editBookmarkModal button {
-	background-color: var(--accentLightTint-dark);
+.black-theme #editBookmarkModal {
+	background-color: var(--darkColor-dark);
+	color: var(--textColorDark-dark);
+	border: 1px solid var(--accentLightTint-dark);
+	box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7);
 }
 
-.black-theme #editBookmarkModal button:hover {
+.black-theme #editBookmarkHeading {
+	color: var(--textColorDark-dark);
+}
+
+.black-theme #editBookmarkModal .floating-label-field input,
+.black-theme #editBookmarkModal .floating-label-field select {
+	background-color: var(--accentLightTint-dark);
+	color: var(--textColorDark-dark);
+	border-color: #383838;
+}
+
+.black-theme #editBookmarkModal .floating-label-field label {
+	color: #9e9e9e;
+}
+
+.black-theme #editBookmarkModal .floating-label-field input:focus + label,
+.black-theme #editBookmarkModal .floating-label-field input:not(:placeholder-shown) + label,
+.black-theme #editBookmarkModal .floating-label-field select + label {
+	color: var(--textColorDark-dark);
+}
+
+.black-theme #editBookmarkModal .bm-folder-action {
+	background-color: var(--accentLightTint-dark);
+	color: var(--darkerColor-dark);
+}
+
+.black-theme #editBookmarkModal .bm-folder-action:hover {
 	background-color: #353535;
+}
+
+.black-theme #editBookmarkModal .new-folder-hint {
+	color: #9e9e9e;
+}
+
+.black-theme #saveBookmarkChanges {
+	background-color: var(--accentLightTint-dark);
+	color: var(--darkerColor-dark);
+}
+
+.black-theme #saveBookmarkChanges:hover:not(:disabled) {
+	background-color: #353535;
+}
+
+.black-theme #cancelBookmarkEdit {
+	background-color: transparent;
+	color: var(--textColorDark-dark);
+	border: 1px solid var(--accentLightTint-dark);
+}
+
+.black-theme #cancelBookmarkEdit:hover {
+	background-color: rgba(255, 255, 255, 0.08);
 }
 
 .black-theme #minute,
@@ -6715,13 +6855,22 @@ body[data-bg="wallpaper"] .dropdown-content {
 	z-index: 1001;
 	left: 50%;
 	top: 50%;
-	transform: translate(-50%, -50%);
-	width: 400px;
+	transform: translate(-50%, -50%) scale(0.96);
+	opacity: 0;
+	width: min(400px, calc(100vw - 32px));
 	background: var(--accentLightTint-blue);
 	color: var(--textColorDark-blue);
 	border-radius: var(--round);
-	filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 	padding: 30px 35px;
+	transition:
+		transform 0.22s var(--md-motion-decelerate),
+		opacity 0.18s ease-out;
+}
+
+#prompt-modal-container.open {
+	transform: translate(-50%, -50%) scale(1);
+	opacity: 1;
 }
 
 /* Background blur overlay */
@@ -6731,12 +6880,20 @@ body[data-bg="wallpaper"] .dropdown-content {
 	inset: 0;
 	width: 100%;
 	height: 100%;
-	background: rgba(0, 0, 0, 0.3);
+	background: rgba(0, 0, 0, 0.35);
+	backdrop-filter: blur(4px);
 	z-index: 1000;
+	opacity: 0;
+	transition: opacity 0.2s ease-out;
 }
 
 #prompt-modal-blur {
 	display: none;
+}
+
+#prompt-modal-blur.open,
+.ai-modal-overlay.open {
+	opacity: 1;
 }
 
 /* Modal Content */
@@ -6772,9 +6929,15 @@ body[data-bg="wallpaper"] .dropdown-content {
 	border: none;
 	outline: none;
 	cursor: pointer;
-	transition: 0.3s ease-in-out;
+	transition:
+		background-color 0.18s var(--md-motion-ease),
+		transform 0.15s var(--md-motion-ease);
 	border-radius: var(--round);
 	text-align: center;
+}
+
+.prompt-modal-button:active {
+	transform: scale(0.97);
 }
 
 /* OK/Yes Button */
@@ -6888,19 +7051,22 @@ body[data-bg="wallpaper"] .dropdown-content {
 #chromeFooterToast {
 	position: fixed;
 	bottom: 30px;
-	left: 30px;
+	inset-inline-start: 30px;
 	width: 400px;
+	max-width: calc(100vw - 60px);
 	border-radius: 22px;
 	overflow: hidden;
-	transform: translateY(100px);
+	transform: translateY(30px) scale(0.97);
 	opacity: 0;
-	transition: all 0.5s var(--md-motion-ease);
+	transition:
+		transform 0.3s var(--md-motion-decelerate),
+		opacity 0.25s ease-out;
 	z-index: 9999;
 	pointer-events: none;
 }
 
 #chromeFooterToast.show {
-	transform: translateY(0);
+	transform: translateY(0) scale(1);
 	opacity: 1;
 	pointer-events: auto;
 }
@@ -7244,3 +7410,55 @@ body[data-bg="wallpaper"] .dropdown-content {
 	}
 }
 /* ----------------- End of Custom select ----------------- */
+
+/* ----------------- Accessibility: Reduced Motion ----------------- */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+	}
+
+	#bookmarksContainer,
+	.bookmark-sidebar,
+	#editBookmarkModal,
+	.bookmark-modal-overlay,
+	#prompt-modal-container,
+	#prompt-modal-blur,
+	.ai-modal-overlay,
+	#chromeFooterToast,
+	.menuBar,
+	.menuBar .menuCont,
+	.menuCont .optCont,
+	.menuCont .optCont .page,
+	.themeIndicator,
+	.button-group::before,
+	.cs-menu,
+	.cs-chevron,
+	.bookmark-menu,
+	.dropdown-content,
+	.searchbar.engine-switching .dropdown-btn > *,
+	.aiToolsCont .toolsCont,
+	.shortcuts .shortcut-name {
+		transition-duration: 0.01ms !important;
+		transform: none !important;
+	}
+
+	#chromeFooterToast.show {
+		transform: none !important;
+	}
+
+	#prompt-modal-container.open,
+	#editBookmarkModal.open {
+		transform: translate(-50%, -50%) !important;
+	}
+
+	.bookmark-sidebar.open {
+		inset-inline-end: 0 !important;
+	}
+
+	.menuBar .menuCont {
+		transform: none !important;
+	}
+}

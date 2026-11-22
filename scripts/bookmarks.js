@@ -16,6 +16,7 @@ const bookmarkViewGrid = document.getElementById("bookmarkViewGrid");
 const bookmarkViewList = document.getElementById("bookmarkViewList");
 const bookmarksCheckbox = document.getElementById("bookmarksCheckbox");
 const editBookmarkModal = document.getElementById("editBookmarkModal");
+const bookmarkModalOverlay = document.getElementById("bookmarkModalOverlay");
 const editBookmarkName = document.getElementById("editBookmarkName");
 const editBookmarkURL = document.getElementById("editBookmarkURL");
 const editBookmarkFavicon = document.getElementById("editBookmarkFavicon");
@@ -318,20 +319,28 @@ document.addEventListener("click", function (event) {
 }, true);
 
 document.addEventListener("keydown", function (event) {
-    if (event.key === "Escape" &&
-        (bookmarkMenu.classList.contains("open") ||
+    if (event.key === "Escape") {
+        if (bookmarkMenu.classList.contains("open") ||
             bookmarkItemMenu.classList.contains("open") ||
             bookmarkRecentMenu.classList.contains("open") ||
-            bookmarkFavoritesMenu.classList.contains("open"))) {
-        closeBookmarkMenusAndRestoreFocus();
-        event.stopPropagation();
-        return;
+            bookmarkFavoritesMenu.classList.contains("open")) {
+            closeBookmarkMenusAndRestoreFocus();
+            event.stopPropagation();
+            return;
+        }
+
+        if (editBookmarkModal.classList.contains("open") || editBookmarkModal.style.display === "block") {
+            closeBookmarkModal();
+            event.stopPropagation();
+            return;
+        }
     }
 
     // Escape also closes the sidebar (on narrow windows it covers the screen and its button is off-screen)
     const promptModal = document.getElementById("prompt-modal-container");
     if (event.key === "Escape" && bookmarkSidebar.classList.contains("open") &&
-        editBookmarkModal.style.display !== "block" && promptModal?.style.display !== "flex" &&
+        editBookmarkModal.style.display !== "block" && !editBookmarkModal.classList.contains("open") &&
+        promptModal?.style.display !== "flex" && !promptModal?.classList.contains("open") &&
         menuBar.style.display === "none") {
         toggleBookmarkSidebar();
     }
@@ -584,6 +593,25 @@ function findDefaultBookmarkFolder(rootChildren) {
 const BOOKMARK_UNKNOWN_ICON = "data:image/svg+xml," + encodeURIComponent(
     '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#566170" d="M12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12q0-.175-.012-.363t-.013-.312q-.125.725-.675 1.2T18 13h-2q-.825 0-1.412-.587T14 11v-1h-4V8q0-.825.588-1.412T12 6h1q0-.575.313-1.012t.762-.713q-.5-.125-1.012-.2T12 4Q8.65 4 6.325 6.325T4 12h5q1.65 0 2.825 1.175T13 16v1h-3v2.75q.5.125.988.188T12 20"/></svg>');
 
+function closeBookmarkModal() {
+    if (!editBookmarkModal) return;
+    editBookmarkModal.classList.remove("open");
+    bookmarkModalOverlay?.classList.remove("open");
+    setTimeout(() => {
+        if (!editBookmarkModal.classList.contains("open")) {
+            editBookmarkModal.style.display = "none";
+            if (bookmarkModalOverlay) bookmarkModalOverlay.style.display = "none";
+        }
+    }, 200);
+
+    // Restore focus to anchor/button
+    if (bookmarkItemMenuAnchor) {
+        bookmarkItemMenuAnchor.focus({ preventScroll: true });
+    } else {
+        bookmarkMenuButton?.focus({ preventScroll: true });
+    }
+}
+
 // folderId (add mode only): folder to preselect instead of the default one
 function openBookmarkModal(mode, node, folderId = null) {
     bookmarkModalMode = mode;
@@ -622,7 +650,14 @@ function openBookmarkModal(mode, node, folderId = null) {
         loadEditBookmarkFolder(node, folderToken);
     }
 
+    if (bookmarkModalOverlay) {
+        bookmarkModalOverlay.style.display = "block";
+    }
     editBookmarkModal.style.display = "block";
+    requestAnimationFrame(() => {
+        bookmarkModalOverlay?.classList.add("open");
+        editBookmarkModal.classList.add("open");
+    });
     editBookmarkName.focus();
 }
 
@@ -842,8 +877,8 @@ document.addEventListener("click", function (event) {
     ) {
         toggleBookmarkSidebar();
 
-        if (editBookmarkModal.style.display !== "none") {
-            editBookmarkModal.style.display = "none";
+        if (editBookmarkModal.classList.contains("open") || editBookmarkModal.style.display !== "none") {
+            closeBookmarkModal();
         }
     }
 });
@@ -1544,7 +1579,7 @@ saveBookmarkChanges.onclick = async function () {
             }
         }
 
-        editBookmarkModal.style.display = "none";
+        closeBookmarkModal();
         loadBookmarks();
     } catch (err) {
         console.error("Error saving bookmark:", err);
@@ -1552,8 +1587,9 @@ saveBookmarkChanges.onclick = async function () {
 };
 
 cancelBookmarkEdit.onclick = function () {
-    editBookmarkModal.style.display = "none";
+    closeBookmarkModal();
 };
+bookmarkModalOverlay?.addEventListener("click", closeBookmarkModal);
 
 editBookmarkName.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
@@ -1609,7 +1645,13 @@ editBookmarkModal.addEventListener("focusin", setIconButtonTooltip);
 document.addEventListener("keydown", function (event) {
     // Prevent shortcut if modal or menu is open
     const modalContainer = document.getElementById("prompt-modal-container");
-    if (modalContainer?.style.display === "flex" || menuBar.style.display !== "none") {
+    if (
+        modalContainer?.style.display === "flex" ||
+        modalContainer?.classList.contains("open") ||
+        menuBar.style.display !== "none" ||
+        editBookmarkModal.classList.contains("open") ||
+        editBookmarkModal.style.display === "block"
+    ) {
         return;
     }
 
