@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "quote": "The only way to do great work is to love what you do.",
+    "author": "Steve Jobs",
+    "category": "inspiration"
+  },
+  {
+    "id": 2,
+    "quote": "Simplicity is the ultimate sophistication.",
+    "author": "Leonardo da Vinci",
+    "category": "design"
+  },
+  {
+    "id": 3,
+    "quote": "Design is not just what it looks like and feels like. Design is how it works.",
+    "author": "Steve Jobs",
+    "category": "design"
+  },
+  {
+    "id": 4,
+    "quote": "Make it simple, but significant.",
+    "author": "Don Draper",
+    "category": "design"
+  },
+  {
+    "id": 5,
+    "quote": "The best way to predict the future is to invent it.",
+    "author": "Alan Kay",
+    "category": "technology"
+  },
+  {
+    "id": 6,
+    "quote": "Good design is as little design as possible.",
+    "author": "Dieter Rams",
+    "category": "design"
+  },
+  {
+    "id": 7,
+    "quote": "Code is like humor. When you have to explain it, it’s bad.",
+    "author": "Cory House",
+    "category": "technology"
+  },
+  {
+    "id": 8,
+    "quote": "Stay hungry, stay foolish.",
+    "author": "Stewart Brand",
+    "category": "inspiration"
+  },
+  {
+    "id": 9,
+    "quote": "Do what you can, with what you have, where you are.",
+    "author": "Theodore Roosevelt",
+    "category": "motivation"
+  },
+  {
+    "id": 10,
+    "quote": "Details make perfection, and perfection is not a detail.",
+    "author": "Leonardo da Vinci",
+    "category": "design"
+  },
+  {
+    "id": 11,
+    "quote": "First, solve the problem. Then, write the code.",
+    "author": "John Johnson",
+    "category": "technology"
+  },
+  {
+    "id": 12,
+    "quote": "In the middle of difficulty lies opportunity.",
+    "author": "Albert Einstein",
+    "category": "inspiration"
+  }
+]

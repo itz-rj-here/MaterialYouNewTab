@@ -1,0 +1,71 @@
+[
+  {
+    "id": "0",
+    "title": "root",
+    "children": [
+      {
+        "id": "1",
+        "title": "Bookmarks bar",
+        "dateAdded": 1700000000000,
+        "children": [
+          {
+            "id": "101",
+            "parentId": "1",
+            "title": "GitHub",
+            "url": "https://github.com",
+            "dateAdded": 1700000001000
+          },
+          {
+            "id": "102",
+            "parentId": "1",
+            "title": "YouTube",
+            "url": "https://youtube.com",
+            "dateAdded": 1700000002000
+          },
+          {
+            "id": "103",
+            "parentId": "1",
+            "title": "Reddit",
+            "url": "https://reddit.com",
+            "dateAdded": 1700000003000
+          },
+          {
+            "id": "104",
+            "parentId": "1",
+            "title": "Wikipedia",
+            "url": "https://wikipedia.org",
+            "dateAdded": 1700000004000
+          },
+          {
+            "id": "105",
+            "parentId": "1",
+            "title": "Dev Resources",
+            "dateAdded": 1700000005000,
+            "children": [
+              {
+                "id": "1051",
+                "parentId": "105",
+                "title": "MDN Web Docs",
+                "url": "https://developer.mozilla.org",
+                "dateAdded": 1700000006000
+              },
+              {
+                "id": "1052",
+                "parentId": "105",
+                "title": "Material Design 3",
+                "url": "https://m3.material.io",
+                "dateAdded": 1700000007000
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "2",
+        "title": "Other bookmarks",
+        "dateAdded": 1700000010000,
+        "children": []
+      }
+    ]
+  }
+]

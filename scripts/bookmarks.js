@@ -42,6 +42,8 @@ if (isFirefox) {
     bookmarksAPI = browser.bookmarks;
 } else if (isChromiumBased) {
     bookmarksAPI = chrome.bookmarks;
+} else if (typeof window.webBookmarks !== "undefined") {
+    bookmarksAPI = window.webBookmarks;
 }
 
 updateSortButtons();
@@ -503,10 +505,10 @@ function addBookmarkToShortcuts(node) {
 
 // ---- Bookmarks API wrapper (Firefox: promises, Chromium: callbacks) ----
 function bookmarksCall(method, ...args) {
-    if (isFirefox) return bookmarksAPI[method](...args);
+    if (isFirefox || bookmarksAPI === window.webBookmarks) return bookmarksAPI[method](...args);
     return new Promise((resolve, reject) => {
         bookmarksAPI[method](...args, result => {
-            if (chrome.runtime.lastError) reject(chrome.runtime.lastError);
+            if (typeof chrome !== "undefined" && chrome?.runtime?.lastError) reject(chrome.runtime.lastError);
             else resolve(result);
         });
     });
@@ -1101,6 +1103,14 @@ function updateBookmarkUI(enabled) {
 }
 
 async function verifyBookmarkPermission() {
+    if (typeof window.webBookmarks !== "undefined" || (!isFirefox && !isChromiumBased)) {
+        if (typeof window.webBookmarks !== "undefined") {
+            bookmarksAPI = window.webBookmarks;
+        }
+        updateBookmarkUI(true);
+        return true;
+    }
+
     let bookmarksPermission;
     if (isFirefox) bookmarksPermission = browser.permissions;
     else if (isChromiumBased) bookmarksPermission = chrome.permissions;
@@ -1256,7 +1266,7 @@ function setBookmarkFavicon(faviconElement, pageUrl) {
     };
 
     // Fallback chain: browser favicon (Chromium only) -> Google -> local offline icon
-    if (!isFirefox && !isOpera) {
+    if (!isFirefox && !isOpera && typeof chrome !== "undefined" && chrome?.runtime?.id) {
         faviconElement.src = `chrome-extension://${chrome.runtime.id}/_favicon/?pageUrl=${encodeURIComponent(pageUrl)}&size=32`;
         faviconElement.onerror = googleFallback;
     } else {

@@ -1,0 +1,46 @@
+{
+  "name": "material-you-new-tab",
+  "version": "3.3.1121",
+  "description": "A dynamic New Tab and web dashboard inspired by Google's 'Material You' (Material Design 3) design system.",
+  "main": "server/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "build": "node scripts/build.js",
+    "lint": "eslint . --max-warnings=10",
+    "format": "prettier --write \"**/*.{js,mjs,json,css,html,md}\" --ignore-path .gitignore",
+    "format:check": "prettier --check \"**/*.{js,mjs,json,css,html,md}\" --ignore-path .gitignore"
+  },
+  "keywords": [
+    "material-you",
+    "material-design-3",
+    "new-tab",
+    "dashboard",
+    "dynamic-website",
+    "express",
+    "nodejs"
+  ],
+  "author": "Prem, XengShi",
+  "license": "GPL-3.0",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "compression": "^1.7.5",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.20.0",
+    "prettier": "^3.5.0",
+    "supertest": "^7.0.0",
+    "vitest": "^5.1.1"
+  }
+}

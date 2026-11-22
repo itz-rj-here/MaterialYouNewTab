@@ -237,6 +237,21 @@ async function getAutocompleteSuggestions(query) {
         apiUrl = proxyurl + encodeURIComponent(apiUrl);
     }
 
+    // In dynamic website mode (non-extension http/https context), use server-side suggestion proxy
+    if (window.location.protocol.startsWith("http") && !isChromiumBased && !isFirefox) {
+        try {
+            const serverRes = await fetch(`/api/suggestions?engine=${encodeURIComponent(selectedOption)}&q=${encodeURIComponent(query)}&lang=${encodeURIComponent(languageCode)}&client=${encodeURIComponent(clientParam)}`);
+            if (serverRes.ok) {
+                const json = await serverRes.json();
+                if (json.success && Array.isArray(json.data)) {
+                    return json.data;
+                }
+            }
+        } catch (e) {
+            // Fall back to direct/proxy fetch below
+        }
+    }
+
     try {
         const response = await fetch(apiUrl);
         const data = await response.json();

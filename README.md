@@ -60,6 +60,54 @@ MYNT: Material You New Tab is a versatile browser extension that personalizes yo
 - **Language Support**: Use the extension in your preferred language for better accessibility.
 - **Browser Compatibility**: Supports all Chromium-based browsers, including **Chrome**, **Edge**, **Brave**, and **Opera**, as well as Firefox-based browsers like **Firefox** and **Zen**.
 
+## 🌐 Dynamic Website Mode (Node.js & Express)
+
+MYNT can now run directly as a **dynamic web application** powered by Node.js and Express, complete with dynamic REST APIs, server-side caching, rate limiting, and web bookmark persistence — with zero changes or regressions to its authentic Material Design 3 visuals!
+
+### Quick Start
+
+1. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+2. **Start the development server** (with auto-reload on changes):
+   ```bash
+   npm run dev
+   ```
+
+3. **Open in browser**:
+   Visit [http://localhost:3000](http://localhost:3000)
+
+### Production Server
+
+```bash
+npm start
+```
+
+### Dynamic Features & Built-in APIs
+
+| Endpoint | Method | Description |
+| :--- | :--- | :--- |
+| `/api/health` | `GET` | Health diagnostics, uptime, and system status |
+| `/api/version` | `GET` | Version and package metadata |
+| `/api/suggestions?q=...&engine=...` | `GET` | Autocomplete proxy (Google, DuckDuckGo, Brave, Reddit, Wikipedia) eliminating CORS on the web |
+| `/api/weather?loc=...` or `?lat=...&lon=...` | `GET` | Weather proxy (Open-Meteo & WeatherAPI) with 10-minute caching |
+| `/api/quotes` | `GET` | Curated inspirational quotes (`?daily=true`, `?category=...`, `?random=false`) |
+| `/api/bookmarks` | `GET`, `POST` | Persistent web bookmarks storage and management |
+| `/api/todos` | `GET`, `POST` | Cloud/local todo list synchronization |
+
+### Available NPM Scripts
+
+- `npm run dev` — Starts the dynamic Node.js server with file watching (`node --watch`)
+- `npm start` — Starts the production Node.js server
+- `npm test` — Runs the automated Vitest test suite
+- `npm run build` — Validates structural integrity, asset paths, locales, and schemas
+- `npm run lint` — Runs ESLint code quality checks
+- `npm run format` — Formats files using Prettier
+
+---
+
 ## 📥 Installation Guide
 
 ### Download
